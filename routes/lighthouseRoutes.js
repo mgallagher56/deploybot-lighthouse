@@ -7,7 +7,7 @@ module.exports = (app) => {
 
     app.post(`/api/lighthouse/:url`, async (req, res, next) => {
         try {
-        new lighthouseController(res, req)
+            await new lighthouseController(res, req)
         } catch (err) {
             next(err);
         }

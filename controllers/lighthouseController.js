@@ -8,7 +8,7 @@ const { BADQUERY } = require('dns');
 class lighthouseController {
     constructor(res, req) {
         const t = this;
-        t.lighthouseStart(req, res);
+            t.lighthouseStart(req, res);
     }
 
     addResultToDb = (req, res, doc) => {
@@ -29,7 +29,7 @@ class lighthouseController {
     lighthouseStart = async (req, res) => {
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-        const options = { logLevel: 'info', output: 'html', port: 9000, onlyCategories: ['performance'] };
+        const options = { logLevel: 'info', output: 'html', port: chrome.port, onlyCategories: ['performance'] };
         const runnerResult = await lighthouse(req.params.url, options);
 
         // `.report` is the HTML report as a string
