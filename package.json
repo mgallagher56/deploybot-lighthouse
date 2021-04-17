@@ -9,7 +9,6 @@
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node index.js",
-    "heroku": "heroku local -e .env.dev"
   },
   "keywords": [],
   "author": "",
