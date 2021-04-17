@@ -29,7 +29,7 @@ class lighthouseController {
     lighthouseStart = async (req, res) => {
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-        const options = { logLevel: 'info', output: 'html', port: chrome.port, onlyCategories: ['performance'] };
+        const options = { logLevel: 'info', output: 'html', port: 9000, onlyCategories: ['performance'] };
         const runnerResult = await lighthouse(req.params.url, options);
 
         // `.report` is the HTML report as a string
@@ -50,6 +50,7 @@ class lighthouseController {
                 lhrHTML: reportHtml
             }
         );
+        
         // fs.writeFileSync('lighthouseController.json', JSON.stringify(runnerResult));
 
 
@@ -60,8 +61,6 @@ class lighthouseController {
         // console.log('Best Practice score was', runnerResult.lhr.categories['best-practices'].score * 100);
         // console.log('SEO score was', runnerResult.lhr.categories.seo.score * 100);
         // console.log('PWA score was', runnerResult.lhr.categories.pwa.score * 100);
-
-
 
         await chrome.kill();
     };
