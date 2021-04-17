@@ -1,4 +1,4 @@
 node_modules
 .idea
 server.js
-.env
+.env**
