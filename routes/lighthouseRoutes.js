@@ -5,8 +5,12 @@ require('../controllers/lighthouseController');
 
 module.exports = (app) => {
 
-    app.post(`/api/lighthouse/:url`, async (req, res) => {
+    app.post(`/api/lighthouse/:url`, async (req, res, next) => {
+        try {
         new lighthouseController(res, req)
+        } catch (err) {
+            next(err);
+        }
     });
 
       app.get(`/`, async (req, res) => {
