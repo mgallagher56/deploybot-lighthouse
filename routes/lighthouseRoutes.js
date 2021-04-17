@@ -1,21 +1,20 @@
 const mongoose = require('mongoose');
 const Lighthouse = mongoose.model('lighthouse');
-const { lightHouseController } = require('../controllers/lighthouseController');
+const { lighthouseController } = require('../controllers/lighthouseController');
 require('../controllers/lighthouseController');
 
 module.exports = (app) => {
 
     app.post(`/api/lighthouse/:url`, async (req, res) => {
-        new LightHouseController(res, req)
+        new lighthouseController(res, req)
     });
 
-    //   app.post(`/api/dbTest`, async (req, res) => {
-    //     let lighthouse = await Lighthouse.create(req.body);
-    //     return res.status(201).send({
-    //       error: false,
-    //       lighthouse
-    //     })
-    //   })
+      app.get(`/`, async (req, res) => {
+        return res.status(200).send(
+            {
+                lighthouseApp: 'Running'
+            })
+      })
 
     //   app.put(`/api/lighthouse/:id`, async (req, res) => {
     //     const {id} = req.params;

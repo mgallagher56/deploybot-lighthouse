@@ -5,7 +5,7 @@ const chromeLauncher = require('chrome-launcher');
 const DbService = require('../services/dbService');
 const { BADQUERY } = require('dns');
 
-class LightHouseController {
+class lighthouseController {
     constructor(res, req) {
         const t = this;
         t.lighthouseStart(req, res);
@@ -50,7 +50,7 @@ class LightHouseController {
                 lhrHTML: reportHtml
             }
         );
-        // fs.writeFileSync('LightHouseController.json', JSON.stringify(runnerResult));
+        // fs.writeFileSync('lighthouseController.json', JSON.stringify(runnerResult));
 
 
         // `.lhr` is the Lighthouse Result as a JS object
@@ -67,5 +67,5 @@ class LightHouseController {
     };
 }
 
-exports.LightHouseController = LightHouseController;
+exports.lighthouseController = lighthouseController;
 
