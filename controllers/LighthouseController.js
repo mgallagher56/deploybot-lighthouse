@@ -1,8 +1,8 @@
 const fs = require('fs');
-const ResultService = require('../services/ResultService');
+const ResultService = require('../services/resultService');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
-const DbService = require('../services/DbService');
+const DbService = require('../services/dbService');
 const { BADQUERY } = require('dns');
 
 class LightHouseController {

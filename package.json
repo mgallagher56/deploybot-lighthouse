@@ -8,7 +8,8 @@
     "client": "npm run start --prefix client",
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node index.js"
+    "start": "node index.js",
+    "heroku": "heroku local -e .env.dev"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +23,8 @@
     "concurrently": "^4.1.1",
     "lighthouse": "^7.3.0",
     "nodemon": "^1.19.4"
+  },
+  "engines" : {
+      "node": "13.x"
   }
 }
