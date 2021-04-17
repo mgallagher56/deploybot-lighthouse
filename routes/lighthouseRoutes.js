@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Lighthouse = mongoose.model('lighthouse');
-const { LightHouseController } = require('../controllers/LighthouseController');
-require('../controllers/LighthouseController');
+const { LightHouseController } = require('../controllers/lighthouseController');
+require('../controllers/lighthouseController');
 
 module.exports = (app) => {
 
