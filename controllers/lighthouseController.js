@@ -3,7 +3,6 @@ const ResultService = require('../services/resultService');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const DbService = require('../services/dbService');
-const { BADQUERY } = require('dns');
 
 class lighthouseController {
     constructor(res, req, next) {
