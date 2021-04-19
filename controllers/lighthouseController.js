@@ -6,9 +6,9 @@ const DbService = require('../services/dbService');
 const { BADQUERY } = require('dns');
 
 class lighthouseController {
-    constructor(res, req) {
+    constructor(res, req, next) {
         const t = this;
-            t.lighthouseStart(req, res);
+            t.lighthouseStart(req, res).catch(next);
     }
 
     addResultToDb = (req, res, doc) => {

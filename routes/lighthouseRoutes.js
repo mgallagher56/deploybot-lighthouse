@@ -7,16 +7,16 @@ module.exports = (app) => {
 
     app.post(`/api/lighthouse/:url`, async (req, res, next) => {
         try {
-            await new lighthouseController(res, req)
+            new lighthouseController(res, req, next)
         } catch (err) {
-            next(err);
+            return next(err);
         }
     });
 
       app.get(`/`, async (req, res) => {
         return res.status(200).send(
             {
-                lighthouseApp: 'Running'
+                lighthouseApp: 'App Running'
             })
       })
 
