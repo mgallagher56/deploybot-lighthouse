@@ -16,11 +16,11 @@ class lighthouseController {
 
             ResultService.addResult(db, req.body.repository, doc, (result) => {
                 if (result) {
-                    res.json({
-                        success: true,
-                        msg: 'Added new report to db.',
-                        data: 'report'
-                    })
+                    // res.json({
+                    //     success: true,
+                    //     msg: 'Added new report to db.',
+                    //     data: 'report'
+                    // })
                 }
             });
         }))
