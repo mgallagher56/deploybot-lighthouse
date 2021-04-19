@@ -12,8 +12,8 @@ module.exports = (app) => {
     app.post(`/api/lighthouse/:url`, async (req, res, next) => {
         try {
             new lighthouseController(res, req, next)
-            let job = await workQueue.add();
-            res.json({ id: job.id });
+            await workQueue.add();
+            // res.json({ id: job.id });
         } catch (err) {
             return next(err);
         }
