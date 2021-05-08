@@ -1,4 +1,4 @@
-# depploybot-lighthouse
+# deploybot-lighthouse
 A lighthouse automation application for ddeploybot using Node.js, Express.js, React.js and MongoDB
 
 To run this project you need to add the backend and frontend dependencies.
