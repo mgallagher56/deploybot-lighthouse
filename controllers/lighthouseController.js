@@ -13,12 +13,16 @@ class lighthouseController {
     }
 
     addResultToDb = (data, doc) => {
+        console.log('adding result to db');
         DbService.connectToDB(((db) => {
-            ResultService.addResult(db, data.body.repository, doc);
+            ResultService.addResult(db, data.body.repository, doc, (result) => {
+                if (result) console.log({result: result});
+            });
         }))
     }
 
     lighthouseStart = async (data) => {
+        console.log('starting lighthouse');
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
         const options = { logLevel: 'info', output: 'html', port: chrome.port };
@@ -33,28 +37,28 @@ class lighthouseController {
         let seoScore           = 'undefined' != typeof(runnerResult.lhr.categories.seo) ? runnerResult.lhr.categories.seo.score * 100 : 'Not run';
         let pwaScore           = 'undefined' != typeof(runnerResult.lhr.categories.pwa) ? runnerResult.lhr.categories.pwa.score * 100 : 'Not run';
 
-        // t.addResultToDb(data,
-        //     {
-        //         name: body.repository + ' - ' + body.environment,
-        //         repo: body.repository,
-        //         commit: body.revision,
-        //         commitMsg: body.comment,
-        //         author: body.author_name,
-        //         deployTime: body.deployed_at,
-        //         timestamp: + new Date(),
-        //         server: body.server,
-        //         environment: body.environment,
-        //         url: data.url,
-        //         lhrHTML: reportHtml,
-        //         scores: {
-        //             performance: performanceScore,
-        //             accessibility: accessibilityScore,
-        //             bestPractices: bestPracticesScore,
-        //             seo: seoScore,
-        //             pwa: pwaScore
-        //         }
-        //     }
-        // );
+        t.addResultToDb(data,
+            {
+                name: body.repository + ' - ' + body.environment,
+                repo: body.repository,
+                commit: body.revision,
+                commitMsg: body.comment,
+                author: body.author_name,
+                deployTime: body.deployed_at,
+                timestamp: + new Date(),
+                server: body.server,
+                environment: body.environment,
+                url: data.url,
+                lhrHTML: reportHtml,
+                scores: {
+                    performance: performanceScore,
+                    accessibility: accessibilityScore,
+                    bestPractices: bestPracticesScore,
+                    seo: seoScore,
+                    pwa: pwaScore
+                }
+            }
+        );
         
         // fs.writeFileSync('lighthouseController.json', JSON.stringify(runnerResult));
 

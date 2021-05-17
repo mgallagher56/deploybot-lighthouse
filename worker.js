@@ -17,11 +17,13 @@ let maxJobsPerWorker = 50;
 
 
 function start() {
+    console.log('starting worker');
   // Connect to the named work queue
   let workQueue = new Queue('work', REDIS_URL);
 
 
   workQueue.process(maxJobsPerWorker, async (job) => {
+    console.log('starting queue');
     // This is an example job that just slowly reports on progress
     // while doing no work. Replace this with your own job logic.
     new lighthouseController(job.data);

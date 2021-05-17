@@ -13,10 +13,8 @@ module.exports = (app) => {
                 url: req.params.url,
                 next: next
             }
-        let job = await workQueue.add( data);
+        let job = await workQueue.add( data );
         res.json( job);
-
-
         } catch (err) {
             return next(err);
         }
