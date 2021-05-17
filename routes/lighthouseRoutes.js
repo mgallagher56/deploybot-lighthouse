@@ -1,13 +1,22 @@
-const mongoose = require('mongoose');
-const Lighthouse = mongoose.model('lighthouse');
 const { lighthouseController } = require('../controllers/lighthouseController');
+let Queue = require('bull');
+let REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+let workQueue = new Queue('work', REDIS_URL);
 require('../controllers/lighthouseController');
 
 module.exports = (app) => {
 
     app.post(`/api/lighthouse/:url`, async (req, res, next) => {
         try {
-            new lighthouseController(res, req, next)
+            let data = {
+                body: req.body,
+                url: req.params.url,
+                next: next
+            }
+        let job = await workQueue.add( data);
+        res.json( job);
+
+
         } catch (err) {
             return next(err);
         }
@@ -19,6 +28,10 @@ module.exports = (app) => {
                 lighthouseApp: 'App Running'
             })
       })
+
+      workQueue.on('global:completed', (jobId, result) => {
+        console.log(`Job completed with result ${result}`);
+      });
 
     //   app.put(`/api/lighthouse/:id`, async (req, res) => {
     //     const {id} = req.params;
