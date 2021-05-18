@@ -27,9 +27,9 @@ module.exports = (app) => {
             })
       })
 
-      workQueue.on('global:completed', (jobId, result) => {
-        console.log(`Job completed with result ${result}`);
-      });
+    //   workQueue.on('global:completed', (jobId, result) => {
+    //     console.log(`Job completed with result ${result}`);
+    //   });
 
     //   app.put(`/api/lighthouse/:id`, async (req, res) => {
     //     const {id} = req.params;
