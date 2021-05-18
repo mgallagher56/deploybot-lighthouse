@@ -14,10 +14,10 @@ class lighthouseController {
         });
     }
 
-    addResultToDb = async (data, doc) => {
+    addResultToDb = (data, doc) => {
         console.log('adding result to db');
         DbService.connectToDB(((db) => {
-            await ResultService.addResult(db, data.body.repository, doc, (result) => {
+            ResultService.addResult(db, data.body.repository, doc, (result) => {
                 if (result) console.log({
                     status  : 'success',
                     message : 'added result to db',
