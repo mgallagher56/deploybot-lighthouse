@@ -3,6 +3,7 @@ const ResultService = require('../services/resultService');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const DbService = require('../services/dbService');
+const config = require('../lighthouse-config/custom-config');
 
 class lighthouseController {
     constructor(data) {
@@ -27,7 +28,7 @@ class lighthouseController {
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
         const options = { logLevel: 'info', output: 'html', port: chrome.port };
-        const runnerResult = await lighthouse(data.url, options);
+        const runnerResult = await lighthouse(data.url, options, config);
 
         // `.report` is the HTML report as a string
         const reportHtml       = runnerResult.report;
@@ -37,6 +38,16 @@ class lighthouseController {
         let bestPracticesScore = 'undefined' != typeof(runnerResult.lhr.categories['best-practices']) ? runnerResult.lhr.categories['best-practices'].score * 100 : 'Not run';
         let seoScore           = 'undefined' != typeof(runnerResult.lhr.categories.seo) ? runnerResult.lhr.categories.seo.score * 100 : 'Not run';
         let pwaScore           = 'undefined' != typeof(runnerResult.lhr.categories.pwa) ? runnerResult.lhr.categories.pwa.score * 100 : 'Not run';
+
+        // `.lhr` is the Lighthouse Result as a JS object
+        console.log('Report is done for ', runnerResult.lhr.finalUrl);
+        console.log('Performance score was: ', performanceScore);
+        console.log('Accessibility score was: ', accessibilityScore);
+        console.log('Best Practice score was: ', bestPracticesScore);
+        console.log('SEO score was: ', seoScore);
+        console.log('PWA score was: ', pwaScore);
+        
+        await chrome.kill();
 
         t.addResultToDb(data,
             {
@@ -60,19 +71,6 @@ class lighthouseController {
                 }
             }
         );
-        
-        // fs.writeFileSync('lighthouseController.json', JSON.stringify(runnerResult));
-
-
-        // `.lhr` is the Lighthouse Result as a JS object
-        console.log('Report is done for ', runnerResult.lhr.finalUrl);
-        console.log('Performance score was: ', performanceScore);
-        console.log('Accessibility score was: ', accessibilityScore);
-        console.log('Best Practice score was: ', bestPracticesScore);
-        console.log('SEO score was: ', seoScore);
-        console.log('PWA score was: ', pwaScore);
-
-        await chrome.kill();
     };
 }
 
