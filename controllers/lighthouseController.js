@@ -14,11 +14,17 @@ class lighthouseController {
         });
     }
 
-    addResultToDb = (data, doc) => {
+    addResultToDb = async (data, doc) => {
         console.log('adding result to db');
         DbService.connectToDB(((db) => {
-            ResultService.addResult(db, data.body.repository, doc, (result) => {
-                if (result) return true;
+            await ResultService.addResult(db, data.body.repository, doc, (result) => {
+                if (result) console.log({
+                    status  : 'success',
+                    message : 'added result to db',
+                    result  : result
+                });
+            }).catch(error => { 
+                console.log('caught', error.message); 
             });
         }))
     }
