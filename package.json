@@ -16,14 +16,17 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bull": "^3.7.0",
     "chrome-launcher": "^0.13.4",
     "express": "^4.17.1",
-    "lighthouse": "^7.3.0",
-    "mongoose": "^5.6.3"
+    "foreman": "^3.0.1",
+    "lighthouse": "^7.5.0",
+    "mongoose": "^5.6.3",
+    "redis": "^3.1.2",
+    "throng": "^4.0.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.1",
-    "lighthouse": "^7.3.0",
+    "concurrently": "^4.1.2",
     "nodemon": "^1.19.4"
   },
   "engines": {

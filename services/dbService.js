@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = process.env.MONGODB_URL;
+const url = process.env.MONGODB_URL || `mongodb://localhost:27017/lighthouse`;
 const dbname = 'lighthouse';
 const Client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
