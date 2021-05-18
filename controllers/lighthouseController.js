@@ -3,13 +3,14 @@ const ResultService = require('../services/resultService');
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const DbService = require('../services/dbService');
-const config = require('../conf/lighthouseConfig');
 
 class lighthouseController {
     constructor(data) {
         const t = this;
 
-        lighthouseReturn = t.lighthouseStart(data).catch(data.next);
+        lighthouseReturn = t.lighthouseStart(data).catch(error => { 
+            console.log('caught', error.message); 
+        });
     }
 
     addResultToDb = (data, doc) => {
@@ -25,7 +26,7 @@ class lighthouseController {
         console.log('starting lighthouse');
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
-        const options = { logLevel: 'info', output: 'html', port: chrome.port, config };
+        const options = { logLevel: 'info', output: 'html', port: chrome.port };
         const runnerResult = await lighthouse(data.url, options);
 
         // `.report` is the HTML report as a string

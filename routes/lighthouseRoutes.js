@@ -13,19 +13,19 @@ module.exports = (app) => {
                 url: req.params.url,
                 next: next
             }
-        let job = await workQueue.add( data );
-        res.json( job);
+            let job = await workQueue.add(data);
+            res.json(job);
         } catch (err) {
             return next(err);
         }
     });
 
-      app.get(`/`, async (req, res) => {
+    app.get(`/`, async (req, res) => {
         return res.status(200).send(
             {
                 lighthouseApp: 'App Running'
             })
-      })
+    })
 
     //   workQueue.on('global:completed', (jobId, result) => {
     //     console.log(`Job completed with result ${result}`);

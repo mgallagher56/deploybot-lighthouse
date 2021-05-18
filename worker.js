@@ -21,20 +21,18 @@ function start() {
     // Connect to the named work queue
     let workQueue = new Queue('work', REDIS_URL);
 
-    try {
-        workQueue.process(maxJobsPerWorker, async (job) => {
-            console.log('starting queue');
-            // This is an example job that just slowly reports on progress
-            // while doing no work. Replace this with your own job logic.
-            new lighthouseController(job.data);
-    
-            // A job can return values that will be stored in Redis as JSON
-            // This return value is unused in this demo application.
-            return { worker: "Returned from worker" };
-      });
-    } catch (error) {
-        console.log(err);
-    }
+    workQueue.process(maxJobsPerWorker, async (job) => {
+        console.log('starting queue');
+        // This is an example job that just slowly reports on progress
+        // while doing no work. Replace this with your own job logic.
+        new lighthouseController(job.data);
+
+        // A job can return values that will be stored in Redis as JSON
+        // This return value is unused in this demo application.
+        return { worker: "Returned from worker" };
+    }).catch(error => {
+        console.log('caught', error.message);
+    });
 }
 
 // Initialize the clustered worker process
