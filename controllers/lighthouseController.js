@@ -8,15 +8,15 @@ const { nextTick } = require('process');
 class lighthouseController {
     constructor(data) {
         const t = this;
-        t.lighthouseStart(data).catch(data.next)
 
+        lighthouseReturn = t.lighthouseStart(data).catch(data.next);
     }
 
     addResultToDb = (data, doc) => {
         console.log('adding result to db');
         DbService.connectToDB(((db) => {
             ResultService.addResult(db, data.body.repository, doc, (result) => {
-                if (result) console.log({result: result});
+                if (result) return true;
             });
         }))
     }

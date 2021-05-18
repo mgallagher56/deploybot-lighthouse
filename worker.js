@@ -30,7 +30,7 @@ function start() {
 
     // A job can return values that will be stored in Redis as JSON
     // This return value is unused in this demo application.
-    return { value: "This will be stored" };
+    return { worker: "Returned from worker" };
   });
 }
 

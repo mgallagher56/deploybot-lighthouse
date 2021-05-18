@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // IMPORT MODELS
-require('./models/lighthouse');
+require('./models/lighthouseModel');
 
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URL || `mongodb+srv://mgallagher56:HYtIF03SoTiJe1pE@lighthouse-reports.vloco.mongodb.net/lighthouse-reports?retryWrites=true&w=majority`);
+mongoose.connect(process.env.MONGODB_URL || `mongodb://localhost:27017/lighthouse`);
 
 app.use(bodyParser.json());
 
