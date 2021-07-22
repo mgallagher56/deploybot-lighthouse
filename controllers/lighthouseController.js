@@ -36,7 +36,7 @@ class lighthouseController {
         const t = this;
         const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
         const options = { logLevel: 'info', output: 'html', port: chrome.port };
-        const runnerResult = await lighthouse(data.url, options, {
+        const runnerResult = await lighthouse(data.url, {
             formFactor: 'desktop',
             screenEmulation: { disabled: true }
           });
